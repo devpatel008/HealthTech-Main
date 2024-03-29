@@ -1,6 +1,7 @@
 // src/components/RegisterForm.js
 
 import React, { useState } from 'react';
+import '../index.css';
 import { useNavigate } from 'react-router-dom';
 const RegisterForm = () => {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ const RegisterForm = () => {
 
             // Redirect or perform other actions upon successful registration
             console.log('Registration successful');
-            
+
             navigate('/login');
         } catch (error) {
             setError(error.message);
@@ -47,7 +48,7 @@ const RegisterForm = () => {
             {error && <p>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Email:</label>
+                    <label className="mx-4">Email:</label>
                     <input
                         type="text"
                         value={email}
