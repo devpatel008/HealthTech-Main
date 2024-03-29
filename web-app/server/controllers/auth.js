@@ -9,12 +9,12 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    const { email, password } = req.body
+    const { name, password } = req.body
 
-    if (!email || !password) {
-        throw new BadRequestError('Please provide email and password')
+    if (!name || !password) {
+        throw new BadRequestError('Please provide name and password')
     }
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ name })
     if (!user) {
         throw new UnauthenticatedError('Invalid Credentials')
     }

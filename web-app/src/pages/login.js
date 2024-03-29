@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 const LoginForm = () => {
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
@@ -19,7 +19,7 @@ const LoginForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ name, password }),
             });
 
             if (!response.ok) {
@@ -42,8 +42,8 @@ const LoginForm = () => {
                     <label>Username:</label>
                     <input
                         type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </div>
                 <div>

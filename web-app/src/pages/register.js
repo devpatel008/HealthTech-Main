@@ -1,8 +1,9 @@
 // src/components/RegisterForm.js
 
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const RegisterForm = () => {
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -19,7 +20,6 @@ const RegisterForm = () => {
             // if (password !== confirmPassword) {
             //     throw new Error('Passwords do not match');
             // }
-
             const response = await fetch(backendUrl, {
                 method: 'POST',
                 headers: {
@@ -34,6 +34,8 @@ const RegisterForm = () => {
 
             // Redirect or perform other actions upon successful registration
             console.log('Registration successful');
+            
+            navigate('/login');
         } catch (error) {
             setError(error.message);
         }

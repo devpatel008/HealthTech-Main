@@ -6,11 +6,13 @@ import { Routes, Route } from 'react-router-dom';
 // import EditBook from './pages/EditBook';
 // import DeleteBook from './pages/DeleteBook';
 import RegisterForm from './pages/register';
+import LoginForm from './pages/login';
 
 const App = () => {
   return (
     <Routes>
       <Route path='/' element={<RegisterForm />} />
+      <Route path='/login' element={<LoginForm />} />
       {/* <Route path='/books/create' element={<CreateBook />} />
       <Route path='/books/details/:id' element={<ShowBook />} />
       <Route path='/books/edit/:id' element={<EditBook />} />
