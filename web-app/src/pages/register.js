@@ -35,7 +35,7 @@ const RegisterForm = () => {
             // Redirect or perform other actions upon successful registration
             console.log('Registration successful');
             
-            navigate('/login');
+            navigate('/');
         } catch (error) {
             setError(error.message);
         }

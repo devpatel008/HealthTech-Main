@@ -1,8 +1,9 @@
 // src/components/LoginForm.js
 
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const LoginForm = () => {
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -34,12 +35,19 @@ const LoginForm = () => {
     };
 
     return (
-        <div>
+        <>
+        <html>  
+<body>
+        <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <div>
             <h2>Login</h2>
             {error && <p>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Username:</label>
+                <label for="username">Username</label>
                     <input
                         type="text"
                         value={name}
@@ -47,7 +55,7 @@ const LoginForm = () => {
                     />
                 </div>
                 <div>
-                    <label>Password:</label>
+                <label for="password">Password</label>
                     <input
                         type="password"
                         value={password}
@@ -57,7 +65,20 @@ const LoginForm = () => {
                 <button type="submit">Login</button>
             </form>
         </div>
+        <div>
+    <button onClick={() => navigate('/register')}>Register</button>
+</div>
+</body>
+</html>
+        </>
+
     );
 };
 
 export default LoginForm;
+
+
+
+
+
+
