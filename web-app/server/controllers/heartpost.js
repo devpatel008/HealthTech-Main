@@ -1,11 +1,11 @@
-const Heart = require('../models/Job')
+const Heart = require('../models/metrics')
 const { StatusCodes } = require('http-status-codes')
 const { BadRequestError, NotFoundError } = require('../errors')
 
-const createJob = async (req, res) => {
+const heartData = async (req, res) => {
     req.body.createdBy = req.user.userId
-    const job = await Job.create(req.body)
-    res.status(StatusCodes.CREATED).json({ job })
+    const heartDataa = await Heart.create(req.body)
+    res.status(StatusCodes.CREATED).json({ heartDataa })
 }
 
 const updateJob = async (req, res) => {
@@ -30,9 +30,10 @@ const updateJob = async (req, res) => {
 }
 
 module.exports = {
-    createJob,
+    
     // deleteJob,
     // getAllJobs,
-    updateJob,
+    //updateJob,
     // getJob,
+    heartData,
 }
