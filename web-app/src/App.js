@@ -11,8 +11,8 @@ import LoginForm from './pages/login';
 const App = () => {
   return (
     <Routes>
-      <Route path='/' element={<RegisterForm />} />
-      <Route path='/login' element={<LoginForm />} />
+      <Route path='/' element={<LoginForm />} />
+      <Route path='/register' element={<RegisterForm />} />
       {/* <Route path='/books/create' element={<CreateBook />} />
       <Route path='/books/details/:id' element={<ShowBook />} />
       <Route path='/books/edit/:id' element={<EditBook />} />

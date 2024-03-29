@@ -18,6 +18,11 @@ const heartMetrics = new mongoose.Schema(
             type: String,
             required: [true, 'Please provide bloodCount or cancel'],
         },
+        createdBy: {
+            type:mongoose.Types.ObjectId,
+            ref: "User",
+            required: [true, 'Please Provide User'],
+        }
     },
     { timestamps: true }
 )
