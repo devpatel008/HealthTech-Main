@@ -3,36 +3,32 @@ const User = require('../models/User')
 const { StatusCodes } = require('http-status-codes')
 const { BadRequestError, NotFoundError } = require('../errors')
 
-const editVitals = async (req, res) => {
-    req.body.createdBy = req.user.userId
-    try {
-        const check = await User.findOne({ _id: req.body.doctor })
-        if (check.role !== "Doctor") {
-            res.status(StatusCodes.BAD_REQUEST).json("Please provide a valid doctor id")
-        } else {
-            const result = await Vitals.create(req.body)
-            res.status(StatusCodes.CREATED).json({ result })
-        }
 
-    } catch (error) {
-        res.json({ error });
-    }
-}
-
-const getAllData = async (req, res) => {
+const getAllPatients = async (req, res) => {
     const {
         user: { userId, name },
         // params: { id: jobId },
     } = req
 
     const result = await Vitals.find({
+        doctor: userId
+    }).select('createdBy')
 
-        createdBy: userId,
-    }).sort('-createdAt').limit(1)
-    if (!result) {
-        throw new NotFoundError(`No data for ${name}`)
+    if (result) {
+        const temp = result.map(async (obj) => {
+            try {
+                const res = await User.findOne({ _id: obj.createdBy })
+                console.log(res);
+            } catch (error) {
+                res.json(error)
+            }
+        })
+        // console.log({ _id: .createdBy })
+        res.status(StatusCodes.OK).json({ temp })
     }
-    res.status(StatusCodes.OK).json({ result })
+    if (!result) {
+        throw new NotFoundError(`No patients under you`)
+    }
 }
 
 
@@ -59,9 +55,9 @@ const getAllData = async (req, res) => {
 // }
 
 module.exports = {
-    editVitals,
+    // editVitals,
     // deleteJob,
-    getAllData,
+    getAllPatients,
     // updateJob,
     // getJob,
 }

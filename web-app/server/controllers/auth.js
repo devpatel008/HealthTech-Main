@@ -1,4 +1,5 @@
 const User = require('../models/User')
+// const Doctor = require('../models/doctors')
 const { StatusCodes } = require('http-status-codes')
 const { BadRequestError, UnauthenticatedError } = require('../errors')
 
@@ -9,9 +10,9 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    const { name, password } = req.body
+    const { name, password, role } = req.body
 
-    if (!name || !password) {
+    if (!name || !password || !role) {
         throw new BadRequestError('Please provide name and password')
     }
     const user = await User.findOne({ name })

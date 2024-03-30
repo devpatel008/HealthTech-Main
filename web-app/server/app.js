@@ -15,6 +15,7 @@ const authenticateUser = require('./middleware/authentication');
 // routers
 const authRouter = require('./routes/auth');
 const vitalsRouter = require("./routes/vitals")
+const doctorRouter = require("./routes/doctor")
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/patient', authenticateUser, vitalsRouter);
+app.use('/api/v1/doctor', authenticateUser, doctorRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

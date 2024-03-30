@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const heartMetrics = new mongoose.Schema(
+const VitalData = new mongoose.Schema(
     {
         heartRate: {
             type: Number,
@@ -22,7 +22,7 @@ const heartMetrics = new mongoose.Schema(
             type: Number,
             required: [true, 'Please provide info']
         },
-        respiratoryRates: {
+        respiratoryRate: {
             type: Number,
             required: [true, 'Please provide info']
         },
@@ -30,10 +30,14 @@ const heartMetrics = new mongoose.Schema(
             type: Number,
             required: [true, 'Please provide info']
         },
+        doctor: [{
+            type: mongoose.Types.ObjectId,
+            ref: 'User'
+        }],
         createdBy: {
             type: mongoose.Types.ObjectId,
             ref: "User",
-            required: [true, 'Please Provide User'],
+            // required: [true, 'Please Provide User'],
         }
     },
     { timestamps: true }
@@ -46,7 +50,7 @@ const heartMetrics = new mongoose.Schema(
 //     },
 // })
 
-module.exports = mongoose.model('Heart', heartMetrics)
+module.exports = mongoose.model('Vitals', VitalData)
 
 // createdBy: {
 //     type: mongoose.Types.ObjectId,
