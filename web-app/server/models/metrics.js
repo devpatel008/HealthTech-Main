@@ -10,16 +10,28 @@ const heartMetrics = new mongoose.Schema(
             type: String,
             required: [true, 'Please provide spO2 or cancel'],
         },
-        bloodStatus: {
-            type: String,
-            required: [true, 'Please provide bloodStatus or cancel'],
-        },
         bloodCount: {
             type: String,
             required: [true, 'Please provide bloodCount or cancel'],
         },
+        bloodPressure: {
+            type: Number,
+            required: [true, 'Please provide info']
+        },
+        temperature: {
+            type: Number,
+            required: [true, 'Please provide info']
+        },
+        respiratoryRates: {
+            type: Number,
+            required: [true, 'Please provide info']
+        },
+        sugarLevel: {
+            type: Number,
+            required: [true, 'Please provide info']
+        },
         createdBy: {
-            type:mongoose.Types.ObjectId,
+            type: mongoose.Types.ObjectId,
             ref: "User",
             required: [true, 'Please Provide User'],
         }
