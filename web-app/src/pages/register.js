@@ -35,13 +35,8 @@ const RegisterForm = () => {
 
             // Redirect or perform other actions upon successful registration
             console.log('Registration successful');
-<<<<<<< HEAD
 
-            navigate('/login');
-=======
-            
             navigate('/');
->>>>>>> 58aa1aaed012864c3c5a10aede8ae21dd04ac8f5
         } catch (error) {
             setError(error.message);
         }
