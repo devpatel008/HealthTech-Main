@@ -1,11 +1,11 @@
-const Heart = require('../models/metrics')
+const Vitals = require('../models/metrics')
 const { StatusCodes } = require('http-status-codes')
 const { BadRequestError, NotFoundError } = require('../errors')
 
-const heartData = async (req, res) => {
+const editVitals = async (req, res) => {
     req.body.createdBy = req.user.userId
-    const heartDataa = await Heart.create(req.body)
-    res.status(StatusCodes.CREATED).json({ heartDataa })
+    const result = await Vitals.create(req.body)
+    res.status(StatusCodes.CREATED).json({ result })
 }
 
 const getAllData = async (req, res) => {
@@ -14,7 +14,7 @@ const getAllData = async (req, res) => {
         // params: { id: jobId },
     } = req
 
-    const result = await Heart.find({
+    const result = await Vitals.find({
 
         createdBy: userId,
     }).sort('-createdAt').limit(1)
@@ -48,7 +48,7 @@ const getAllData = async (req, res) => {
 // }
 
 module.exports = {
-    heartData,
+    editVitals,
     // deleteJob,
     getAllData,
     // updateJob,
