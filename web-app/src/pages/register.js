@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../index.css';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
@@ -27,7 +28,7 @@ const RegisterForm = () => {
             }
 
             console.log('Registration successful');
-            
+
             navigate('/');
         } catch (error) {
             setError(error.message);
