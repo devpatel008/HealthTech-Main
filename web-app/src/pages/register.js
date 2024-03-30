@@ -8,6 +8,8 @@ const RegisterForm = () => {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
+    const [role, setRole] = useState('Patient');
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -139,9 +141,9 @@ const RegisterForm = () => {
             </div>
             <div>
                 <h2>Register</h2>
-              
-                <form onSubmit={handleSubmit}>
+
                 {error && <p>{error}</p>}
+                <form onSubmit={handleSubmit}>
                     <div>
                         <label>Email:</label>
                         <input
@@ -166,6 +168,15 @@ const RegisterForm = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
+                    <label htmlFor="role">Role</label>
+                    <select
+                        id="role"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                    >
+                        <option value="Patient" >Patient</option>
+                        <option value="Doctor">Doctor</option>
+                    </select>
                     <button type="submit">Register</button>
                 </form>
             </div>
@@ -173,4 +184,4 @@ const RegisterForm = () => {
     );
 };
 
-export default RegisterForm;
+export default RegisterForm;

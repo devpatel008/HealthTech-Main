@@ -15,16 +15,20 @@ const getAllPatients = async (req, res) => {
     }).select('createdBy')
 
     if (result) {
-        const temp = result.map(async (obj) => {
-            try {
-                const res = await User.findOne({ _id: obj.createdBy })
-                console.log(res);
-            } catch (error) {
-                res.json(error)
-            }
-        })
+
+        const patients = await Promise.all(result.map(async (obj) => {
+            // try {
+            const res = await User.findOne({ _id: obj.createdBy }).select('name')
+            return res.name
+            // temp.push(res)
+            console.log(res);
+            // } catch (error) {
+            //     res.json(error)
+            // }
+        }))
         // console.log({ _id: .createdBy })
-        res.status(StatusCodes.OK).json({ temp })
+        // console.log(temp)
+        res.status(StatusCodes.OK).json({ patients })
     }
     if (!result) {
         throw new NotFoundError(`No patients under you`)

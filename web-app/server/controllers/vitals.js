@@ -6,11 +6,16 @@ const { BadRequestError, NotFoundError } = require('../errors')
 const editVitals = async (req, res) => {
     req.body.createdBy = req.user.userId
     try {
-        const check = await User.findOne({ _id: req.body.doctor })
-        if (check.role !== "Doctor") {
-            res.status(StatusCodes.BAD_REQUEST).json("Please provide a valid doctor id")
+        if (req.body.doctor) {
+            const check = await User.findOne({ _id: req.body.doctor })
+            if (check.role !== "Doctor") {
+                res.status(StatusCodes.BAD_REQUEST).json("Please provide a valid doctor id")
+            } else {
+                const result = await Vitals.create({ ...req.body })
+                res.status(StatusCodes.CREATED).json({ result })
+            }
         } else {
-            const result = await Vitals.create(req.body)
+            const result = await Vitals.create({ ...req.body })
             res.status(StatusCodes.CREATED).json({ result })
         }
 

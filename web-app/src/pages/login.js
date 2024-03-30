@@ -5,9 +5,11 @@ const LoginForm = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-
+    const [role, setRole] = useState('Patient');
     const handleSubmit = async (e) => {
         e.preventDefault();
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
 
         // Backend URL - Replace with your actual backend URL
         const backendUrl = 'http://localhost:4000/api/v1/auth/login';
@@ -18,14 +20,17 @@ const LoginForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, password }),
+                body: JSON.stringify({ name, password, role }),
             });
             if (!response.ok) {
                 throw new Error('Invalid credentials');
             }
 
             const { token, user } = await response.json()
-            console.log(user.name);
+            //store token and user in local storage
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', user.name);
+
 
             // Redirect or perform other actions upon successful login
             console.log('Login successful');
@@ -161,6 +166,16 @@ const LoginForm = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+
+                    <label htmlFor="role">Role</label>
+                    <select
+                        id="role"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                    >
+                        <option value="Patient" >Patient</option>
+                        <option value="Doctor">Doctor</option>
+                    </select>
                     <button type="submit">Log In</button>
                     <button type="button" onClick={() => navigate('/register')}>
                         Register

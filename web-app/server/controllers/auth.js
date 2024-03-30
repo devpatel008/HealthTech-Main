@@ -15,7 +15,7 @@ const login = async (req, res) => {
     if (!name || !password || !role) {
         throw new BadRequestError('Please provide name and password')
     }
-    const user = await User.findOne({ name })
+    const user = await User.findOne({ name, role })
     if (!user) {
         throw new UnauthenticatedError('Invalid Credentials')
     }
