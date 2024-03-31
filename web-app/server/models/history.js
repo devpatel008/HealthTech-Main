@@ -27,27 +27,27 @@ const HistorySchema = new mongoose.Schema({
         type: Number,
         required: [true, "Please Provide Info"]
     },
-    CheifComplaint: {
+    cheifComplaint: {
         type: String,
         required: [true, "Please Provide Info"]
     },
-    PresentIlliness: {
+    presentIlliness: {
         type: Array,
         required: [true, "Please Provide Info"]
     },
-    Blood_Group: {
+    bloodGroup: {
         type: String,
         required: [true, "Please Provide Info"]
     },
-    On_Medications: {
+    nnMedications: {
         type: String,
         required: [true, "Please Provide Info"],
     },
-    Alcohol_Counsumer: {
+    alcoholCounsumer: {
         type: String,
         required: [true, "Please Provide Info"],
     },
-    Tobaaco_Counsumer: {
+    tobaacoCounsumer: {
         type: String,
         required: [true, "Please Provide Info"],
     }

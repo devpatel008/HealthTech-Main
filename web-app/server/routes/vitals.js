@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const { editVitals, getAllData } = require('../controllers/vitals')
+const { editVitals, getData, getAllMedication } = require('../controllers/patient')
 
 router.post('/editVitals', editVitals);
-router.get('/vitals', getAllData)
+router.get('/vitals', getData)
+router.get("/allMedications", getAllMedication)
 //router.post('/login', login)
 
 module.exports = router

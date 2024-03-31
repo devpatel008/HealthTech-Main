@@ -24,7 +24,7 @@ const editVitals = async (req, res) => {
     }
 }
 
-const getAllData = async (req, res) => {
+const getData = async (req, res) => {
     const {
         user: { userId, name },
         // params: { id: jobId },
@@ -40,6 +40,27 @@ const getAllData = async (req, res) => {
     res.status(StatusCodes.OK).json({ result })
 }
 
+const getAllData = async (req, res) => {
+    const {
+        user: { userId, name },
+        // params: { id: jobId },
+    } = req
+
+    const result = await Vitals.find({
+
+        createdBy: userId,
+    }).sort('-createdAt')
+    if (!result) {
+        throw new NotFoundError(`No data for ${name}`)
+    }
+    res.status(StatusCodes.OK).json({ result })
+}
+
+const getAllMedication = async (req, res) => {
+    const id = req.user.id;
+    const Medications = await Med.find({ to: id });
+    res.status(200).json({ Medications });
+};
 
 
 // const updateJob = async (req, res) => {
@@ -67,6 +88,8 @@ module.exports = {
     editVitals,
     // deleteJob,
     getAllData,
+    getData,
+    getAllMedication
     // updateJob,
     // getJob,
 }
