@@ -2,57 +2,134 @@
 const mongoose = require('mongoose')
 // const bcrypt = require('bcryptjs')
 // const jwt = require('jsonwebtoken')
+const Conditions=new mongoose.Schema({
+ asthma:{
+    type:Boolean,
+    required:[true]
+ },
+ cardiacDisease:{
+    type:Boolean,
+    required:[true]
+ },
+ hypertension:{
+    type:Boolean,
+    required:[true]
+ },
+ epilepsy:{
+    type:Boolean,
+    required:[true]
+ },
+ cancer:{
+    type:Boolean,
+    required:[true]
+ },
+ diabetes:{
+    type:Boolean,
+    required:[true]
+ },
+ psychiatricDisorder:{
+    type:Boolean,
+    required:[true]
+ },
+ other:{
+    type:Boolean,
+    required:[true]
+ }
+ }
+)
 
+const Symptoms=new mongoose.Schema({
+    chestPain:{
+       type:Boolean,
+       required:[true]
+    },
+    otherSymptoms:{
+       type:Boolean,
+       required:[true]
+    },
+    weightGain:{
+       type:Boolean,
+       required:[true]
+    },
+    weightLoss:{
+       type:Boolean,
+       required:[true]
+    },
+    musculoskeletal:{
+       type:Boolean,
+       required:[true]
+    },
+    gastrointestinal:{
+       type:Boolean,
+       required:[true]
+    },
+    psychiatric:{
+        type:Boolean,
+        required:[true]
+     },
+    neurological:{
+        type:Boolean,
+        required:[true]
+     },
+     genitourinary:{
+        type:Boolean,
+        required:[true]
+     },
+     lymphatic:{
+        type:Boolean,
+        required:[true]
+     },
+     hematological:{
+        type:Boolean,
+        required:[true]
+     },
+     cardiovascular:{
+        type:Boolean,
+        required:[true]
+     },
+     respriratory:{
+        type:Boolean,
+        required:[true]
+     },
+   })
 const HistorySchema = new mongoose.Schema({
-
-    dateOfBirth: {
+    name: {
         type: String,
         required: [true, 'Please provide info']
     },
-    fullName: {
-        type: String,
-        required: [true, 'Please provide info']
-    },
-    age: {
-        type: Number,
-        required: [true, 'Please provide info']
-    },
-
-    weight: {
+    gender: {
         type: Number,
         required: [true, "Please provide Info"],
     },
-
-    height: {
+    age: {
         type: Number,
         required: [true, "Please Provide Info"]
     },
-    cheifComplaint: {
-        type: String,
-        required: [true, "Please Provide Info"]
+    contactNumber:{
+        type:Number,
+        required:[true, "Please provide Info"],
     },
-    presentIlliness: {
-        type: Array,
-        required: [true, "Please Provide Info"]
+    allergies:{
+        type:String,
+        required:[true, "Please provide Info"],
+    
     },
-    bloodGroup: {
-        type: String,
-        required: [true, "Please Provide Info"]
+    otherMedications:{
+        type:String,
+        required:[true, "Please provide Info"],
     },
-    nnMedications: {
-        type: String,
-        required: [true, "Please Provide Info"],
+    conditions:{
+        type:Conditions,
+        required:[true, "Please provide Info"],
     },
-    alcoholCounsumer: {
-        type: String,
-        required: [true, "Please Provide Info"],
+    symptoms:{
+        type:Symptoms,
+        required:[true, "Please provide Info"],
     },
-    tobaacoCounsumer: {
-        type: String,
-        required: [true, "Please Provide Info"],
+    alcoholCosumption:{
+        type:Boolean,
+        required:[true, "Please provide Info"]
     }
-
-
 })
 
 // UserSchema.pre('save', async function () {
