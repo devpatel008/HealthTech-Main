@@ -6,78 +6,74 @@ import { useNavigate } from 'react-router-dom';
 
 const UpdateVitals = () => {
 
-    const UV = {
-        backgroundImage: `url(${process.env.PUBLIC_URL + "/uv.jpeg"
-            })`,
-        opacity: "1",
-        // height: "100vh",
-        // marginTop: "-70px",
-        // // fontSize: "50px",
-        // backgroundSize: "cover",
-        // backgroundRepeat: "no-repeat",
-    };
-
-    const navigate = useNavigate();
-    const [heartRate, setHeartRate] = useState(0);
-    const [bloodPressure, setBloodPressure] = useState(0);
-    const [temperature, setTemperature] = useState(0);
-    const [spO2, setSpO2] = useState('');
-    const [bloodCount, setBloodCount] = useState('');
-    const [respiratoryRate, setRespiratoryRate] = useState(0);
-    const [sugarLevel, setSugarLevel] = useState(0);
+    const [dateOfBirth, setDateOfBirth] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [age, setAge] = useState(0);
+    const [weight, setWeight] = useState(0);
+    const [height, setHeight] = useState(0);
+    const [cheifComplaint, setCheifComplaint] = useState('');
+    const [presentIllness, setPresentIllness] = useState([]);
+    const [bloodGroup, setBloodGroup] = useState('');
+    const [onMedications, setOnMedications] = useState('');
+    const [alcoholConsumer, setAlcoholConsumer] = useState('');
+    const [tobaccoConsumer, setTobaccoConsumer] = useState('');
     const [loading, setLoading] = useState(false);
-    const [doctor, setDoctor] = useState('');
     const token = localStorage.getItem('token');
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data } = await axios.get('http://localhost:4000/api/v1/patient/vitals', { headers: { Authorization: `Bearer ${token}` } });
-                console.log(data);
-                // Use the 'data' variable here if needed
-            } catch (error) {
-                console.log(error);
-            }
-        };
+    // useEffect(() => {
+    //     axios.get('http://localhost:4000/api/v1/patient/vitals', { headers: { Authorization: `Bearer ${token}` } })
+    //         .then((response) => {
+    //             console.log(response.data);
+    //             setHeartRate(response.data.heartRate);
+    //             setBloodPressure(response.data.bloodPressure);
+    //             setTemperature(response.data.temperature);
+    //             setSpO2(response.data.spO2);
+    //             setBloodCount(response.data.bloodCount);
+    //             setRespiratoryRate(response.data.respiratoryRate);
+    //             setSugarLevel(response.data.sugarLevel);
+    //             setDoctor(response.data.doctor);
+    //         })
+    // }
+    //     , []);
 
-        fetchData();
-    }, []);
+    const addHistory = () => {
+        const data1 = {
+            dateOfBirth,
+            fullName,
+            age,
+            weight,
+            height,
+            cheifComplaint,
+            presentIllness,
+            bloodGroup,
+            onMedications,
+            alcoholConsumer,
+            tobaccoConsumer,
 
-    const handleSaveVitals = () => {
-        const data = {
-            heartRate,
-            spO2,
-            bloodCount,
-            bloodPressure,
-            temperature,
-            respiratoryRate,
-            sugarLevel,
-            doctor
         };
 
         setLoading(true);
+
+
         axios
-            .post('http://localhost:4000/api/v1/patient/editVitals', data, { headers: { Authorization: `Bearer ${token}` } })
+            .post('http://localhost:4000/api/v1/patient/addHistory', data, { headers: { Authorization: `Bearer ${token}` } })
             .then(() => {
-                console.log(data);
                 setLoading(false);
-                // navigate('/patient/dashboard');
+                navigate('/dashboard');
             })
             .catch((error) => {
                 setLoading(false);
                 alert('An error occurred. Please try again later.');
                 console.log(error);
             });
-
-            // navigate('/dashboard');
     };
     return (
-        <div style={UV} className='main  h-screen w-screen'>
+        <>
             <div className='p-4'>
                 {/* <BackButton /> */}
-                <h1 className='text-3xl my-4 font-bold'>Update Vitals</h1>
+                <h1 className='text-3xl my-4'>Add History</h1>
                 {/* {loading ? <Spinner /> : ''} */}
-                <div className='flex flex-col border-4 border-sky-400 rounded-xl w-[600px] p-4 mx-auto bg-cyan-100 shadow-gray-950 shadow-2xl'>
+                <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto'>
                     <div className='my-4'>
                         <label className='text-xl mr-4 text-gray-500'>Pulse</label>
                         <input
@@ -144,19 +140,19 @@ const UpdateVitals = () => {
                     <div className='my-4'>
                         <label className='text-xl mr-4 text-gray-500'>Doctor ID</label>
                         <input
-                            type='number'
+                            type='text'
                             value={doctor}
                             onChange={(e) => setDoctor(e.target.value)}
                             className='border-2 border-gray-500 px-4 py-2  w-full '
                         />
                     </div>
 
-                    <button className='p-2 bg-gray-500 m-8 hover:bg-gray-200 font-semibold text-white hover:text-black' onClick={handleSaveVitals}>
+                    <button className='p-2 bg-sky-300 m-8' onClick={handleSaveVitals}>
                         Save
                     </button>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
-export default UpdateVitals;
+export default addHistory;

@@ -22,7 +22,7 @@ const RegisterForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, name, password }),
+                body: JSON.stringify({ email, name, password , role}),
             });
 
             if (!response.ok) {
@@ -30,8 +30,11 @@ const RegisterForm = () => {
             }
 
             console.log('Registration successful');
+            // const { token, user  } = await response.json()
+            // const role = user.role;
 
-            navigate('/');
+        if(role=='Patient')    navigate('/history');
+        else navigate('/');
         } catch (error) {
             setError(error.message);
         }

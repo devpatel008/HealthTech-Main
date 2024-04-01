@@ -1,59 +1,138 @@
 // const { number } = require('joi')
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 // const bcrypt = require('bcryptjs')
 // const jwt = require('jsonwebtoken')
+const Conditions = new mongoose.Schema({
+  asthma: {
+    type: Boolean,
+    //  required:[true]
+  },
+  cardiacDisease: {
+    type: Boolean,
+    //  required:[true]
+  },
+  hypertension: {
+    type: Boolean,
+    //  required:[true]
+  },
+  epilepsy: {
+    type: Boolean,
+    //  required:[true]
+  },
+  cancer: {
+    type: Boolean,
+    //  required:[true]
+  },
+  diabetes: {
+    type: Boolean,
+    //  required:[true]
+  },
+  psychiatricDisorder: {
+    type: Boolean,
+    //  required:[true]
+  },
+  other: {
+    type: Boolean,
+    //  /required:[true]
+  },
+});
 
+const Symptoms = new mongoose.Schema({
+  chestPain: {
+    type: Boolean,
+    //  required:[true]
+  },
+  otherSymptoms: {
+    type: Boolean,
+    //  required:[true]
+  },
+  weightGain: {
+    type: Boolean,
+    //  required:[true]
+  },
+  weightLoss: {
+    type: Boolean,
+    //  required:[true]
+  },
+  musculoskeletal: {
+    type: Boolean,
+    //  required:[true]
+  },
+  gastrointestinal: {
+    type: Boolean,
+    //  required:[true]
+  },
+  psychiatric: {
+    type: Boolean,
+    //   required:[true]
+  },
+  neurological: {
+    type: Boolean,
+    //   required:[true]
+  },
+  genitourinary: {
+    type: Boolean,
+    //   required:[true]
+  },
+  lymphatic: {
+    type: Boolean,
+    //   required:[true]
+  },
+  hematological: {
+    type: Boolean,
+    //   required:[true]
+  },
+  cardiovascular: {
+    type: Boolean,
+    //   required:[true]
+  },
+  respriratory: {
+    type: Boolean,
+    //   required:[true]
+  },
+});
 const HistorySchema = new mongoose.Schema({
-
-    dateOfBirth: {
-        type: String,
-        required: [true, 'Please provide info']
-    },
-    fullName: {
-        type: String,
-        required: [true, 'Please provide info']
-    },
-    age: {
-        type: Number,
-        required: [true, 'Please provide info']
-    },
-
-    weight: {
-        type: Number,
-        required: [true, "Please provide Info"],
-    },
-
-    height: {
-        type: Number,
-        required: [true, "Please Provide Info"]
-    },
-    CheifComplaint: {
-        type: String,
-        required: [true, "Please Provide Info"]
-    },
-    PresentIlliness: {
-        type: Array,
-        required: [true, "Please Provide Info"]
-    },
-    Blood_Group: {
-        type: String,
-        required: [true, "Please Provide Info"]
-    },
-    On_Medications: {
-        type: String,
-        required: [true, "Please Provide Info"],
-    },
-    Alcohol_Counsumer: {
-        type: String,
-        required: [true, "Please Provide Info"],
-    },
-    Tobaaco_Counsumer: {
-        type: String,
-        required: [true, "Please Provide Info"],
-    }
-
-
-})
+  name: {
+    type: String,
+    //   required: [true, 'Please provide info']
+  },
+  gender: {
+    type: Number,
+    //   required: [true, "Please provide Info"],
+  },
+  age: {
+    type: Number,
+    //   required: [true, "Please Provide Info"]
+  },
+  contactNumber: {
+    type: Number,
+    //   required:[true, "Please provide Info"],
+  },
+  allergies: {
+    type: String,
+    //   required:[true, "Please provide Info"],
+  },
+  otherMedications: {
+    type: String,
+    //   required:[true, "Please provide Info"],
+  },
+  conditions: {
+    type: Conditions,
+    //   required:[true, "Please provide Info"],
+  },
+  symptoms: {
+    type: Symptoms,
+    //   required:[true, "Please provide Info"],
+  },
+  alcoholCosumption: {
+    type: Boolean,
+    //   required:[true, "Please provide Info"]
+  },
+  createdBy: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+  },
+});
 
 // UserSchema.pre('save', async function () {
 //     const salt = await bcrypt.genSalt(10)
@@ -75,4 +154,4 @@ const HistorySchema = new mongoose.Schema({
 //     return isMatch
 // }
 
-module.exports = mongoose.model('History', HistorySchema)
+module.exports = mongoose.model("History", HistorySchema);

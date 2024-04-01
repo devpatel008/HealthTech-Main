@@ -23,17 +23,19 @@ const LoginForm = () => {
                 body: JSON.stringify({ name, password, role }),
             });
             if (!response.ok) {
+              // console.log(response);
                 throw new Error('Invalid credentials');
             }
-
-            const { token, user } = await response.json()
+            const { token, user  } = await response.json()
             //store token and user in local storage
             localStorage.setItem('token', token);
             localStorage.setItem('user', user.name);
-
-
+            const r1 = user.role;
             // Redirect or perform other actions upon successful login
             console.log('Login successful');
+        if(r1==='Patient')  navigate('/patient/dashboard');
+         else   navigate('/doctor');
+          
         } catch (err) {
             setError(err.message); // Set the error message
         }
