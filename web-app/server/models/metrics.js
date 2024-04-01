@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const VitalData = new mongoose.Schema(
     {
         heartRate: {
-            type: Number,
+            type: String,
             // required: [true, 'Please provide heartRate or cancel'],
         },
         spO2: {
@@ -15,19 +15,19 @@ const VitalData = new mongoose.Schema(
             // required: [true, 'Please provide bloodCount or cancel'],
         },
         bloodPressure: {
-            type: Number,
+            type: String,
             // required: [true, 'Please provide info']
         },
         temperature: {
-            type: Number,
+            type: String,
             // required: [true, 'Please provide info']
         },
         respiratoryRate: {
-            type: Number,
+            type: String,
             // required: [true, 'Please provide info']
         },
         sugarLevel: {
-            type: Number,
+            type: String,
             // required: [true, 'Please provide info']
         },
         doctor: {

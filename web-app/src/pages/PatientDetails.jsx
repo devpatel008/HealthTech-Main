@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
 import Profile from './assets/profile.jpg'
 // import BackButton from '../components/BackButton';
 // import Spinner from '../components/Spinner';
@@ -17,11 +16,12 @@ const { id } = useParams();
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:4000/api/v1/doctor/getPatientVitals/${id}` , { headers: { Authorization: `Bearer ${token}` } })
+      .get("http://localhost:4000/api/v1/doctor/getPatientVitals/" + id , { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
-          const json1 =  response.json();
-          setPatientVitals(json1);
-          console.log(json1);
+        //   const json1 =  response.json();
+        // console.log(response);
+          setPatientVitals(response.data.vitals);
+        //   console.log(json1);
         setLoading(false);
       })
       .catch((error) => {
@@ -38,7 +38,7 @@ const { id } = useParams();
   
   const handleSubmit = () => {
       axios
-          .post(`http://localhost:4000/api/v1/doctor/medication/${id}`, { prescription }, { headers: { Authorization: `Bearer ${token}` } })
+          .post("http://localhost:4000/api/v1/doctor/medication/" + id, { prescription }, { headers: { Authorization: `Bearer ${token}` } })
           .then((response) => {
             setPrescription('');
             //   console.log(response.data);
@@ -57,9 +57,9 @@ const { id } = useParams();
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:4000/api/v1/doctor/getPatientHistory/${id}` , { headers: { Authorization: `Bearer ${token}` } })
+      .get("http://localhost:4000/api/v1/doctor/getPatientHistory/" + id  , { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response);
         setPatientHistory(response.data);
         setLoading(false);
       })
@@ -103,7 +103,7 @@ const { id } = useParams();
                             </div>
                             {/* <input type='textarea' className='overflow-y-auto max-h-48 w-80 mt-8 mx-8 border-2 border-black hover:border-4 hover:border-gray-700'></input> */}
                             <textarea className='overflow-y-auto max-h-48 w-80 mt-8 mx-8 border-2 border-black hover:border-4 hover:border-gray-700' value={prescription} onChange={handlePrescriptionChange}></textarea>
-          <button className='mt-2 mx-20 border bg-blue-500 border-black text-white font-semibold rounded-lg hover:bg-cyan-500 w-56' onClick={handleSubmit}>Send Prescription</button>
+                            <button className='mt-2 mx-20 border bg-blue-500 border-black text-white font-semibold rounded-lg hover:bg-cyan-500 w-56' onClick={handleSubmit}>Send Prescription</button>
                             {/* <button>Send </button> */}
                         </div>
                     </div>
@@ -120,7 +120,7 @@ const { id } = useParams();
                             <div className="bg-gray-600 p-4 rounded-lg shadow-2xl m-4">
                                 <h2 className="text-lg font-semibold mb-2 text-blue-400">Current Ailments</h2>
                                 <div className='overflow-y-auto max-h-56 text-blue-200'>
-                                    <p>Dhyey Randi </p>
+                                    <p> </p>
                                 </div>
                             </div>
 

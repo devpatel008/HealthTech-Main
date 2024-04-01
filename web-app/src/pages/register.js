@@ -28,8 +28,6 @@ const RegisterForm = () => {
             if (!response.ok) {
                 throw new Error('Registration failed');
             }
-
-            console.log('Registration successful');
             // const { token, user  } = await response.json()
             // const role = user.role;
 
@@ -79,7 +77,7 @@ const RegisterForm = () => {
                         bottom: -80px;
                     }
                     form {
-                        height: 520px;
+                        height: 550px;
                         width: 400px;
                         background-color: rgba(255, 255, 255, 0.13);
                         position: absolute;
@@ -177,8 +175,8 @@ const RegisterForm = () => {
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
                     >
-                        <option value="Patient" >Patient</option>
-                        <option value="Doctor">Doctor</option>
+                        <option value="Patient" className='text-black hover:bg-gray-700 hover:text-white' >Patient</option>
+                        <option value="Doctor" className='text-black hover:bg-gray-700 hover:text-white'>Doctor</option>
                     </select>
                     <button type="submit">Register</button>
                 </form>
