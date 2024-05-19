@@ -118,3 +118,15 @@ export const deleteAppointment = catchAsyncErrors(async (req, res, next) => {
     message: "Appointment Deleted!",
   });
 });
+
+export const getDocAppointments = catchAsyncErrors(async (req, res, next) => {
+  const {
+    user: { id },
+    // params: { id: jobId },
+  } = req;
+  const appointments = await Appointment.find({ doctorId: id, status: "Pending" }).sort("createdAt");
+  res.status(200).json({
+    success: true,
+    appointments,
+  });
+});

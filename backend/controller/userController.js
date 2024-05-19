@@ -2,7 +2,13 @@ import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import { User } from "../models/userSchema.js";
 import ErrorHandler from "../middlewares/error.js";
 import { generateToken } from "../utils/jwtToken.js";
-import cloudinary from "cloudinary";
+const { CloudImage } = require('cloud-image');
+// import cloudinary from "cloudinary";
+
+const cloudImage = new CloudImage({
+  apiKey: process.env.CLOUDIMAGE_API_KEY,
+  apiSecret: process.env.CLOUDIMAGE_API_SECRET
+});
 
 export const patientRegister = catchAsyncErrors(async (req, res, next) => {
   const { firstName, lastName, email, phone, nic, dob, gender, password } =
@@ -34,7 +40,7 @@ export const patientRegister = catchAsyncErrors(async (req, res, next) => {
     dob,
     gender,
     password,
-    role: "Patient",
+    role: "Patient"
   });
   generateToken(user, "User Registered!", 200, res);
 });
@@ -143,39 +149,53 @@ export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
       new ErrorHandler("Doctor With This Email Already Exists!", 400)
     );
   }
-  const cloudinaryResponse = await cloudinary.uploader.upload(
-    docAvatar.tempFilePath
-  );
-  if (!cloudinaryResponse || cloudinaryResponse.error) {
-    console.error(
-      "Cloudinary Error:",
-      cloudinaryResponse.error || "Unknown Cloudinary error"
-    );
-    return next(
-      new ErrorHandler("Failed To Upload Doctor Avatar To Cloudinary", 500)
-    );
+
+  // Upload the avatar to Cloud Image
+  try {
+    const cloudImageResponse = await cloudImage.upload({
+      file: docAvatar.tempFilePath,
+      folder: 'doctor_avatars',
+      use_filename: true,
+      unique_filename: false
+    });
+
+    if (!cloudImageResponse || cloudImageResponse.error) {
+      console.error(
+        "Cloud Image Error:",
+        cloudImageResponse.error || "Unknown Cloud Image error"
+      );
+      return next(
+        new ErrorHandler("Failed To Upload Doctor Avatar To Cloud Image", 500)
+      );
+    }
+
+    // Proceed with creating the doctor record after successful upload
+    const doctor = await User.create({
+      firstName,
+      lastName,
+      email,
+      phone,
+      nic,
+      dob,
+      gender,
+      password,
+      role: "Doctor",
+      doctorDepartment,
+      docAvatar: {
+        public_id: cloudImageResponse.public_id,
+        url: cloudImageResponse.secure_url,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "New Doctor Registered",
+      doctor,
+    });
+  } catch (error) {
+    console.error("Cloud Image Error:", error);
+    return next(new ErrorHandler("Failed To Upload Doctor Avatar To Cloud Image", 500));
   }
-  const doctor = await User.create({
-    firstName,
-    lastName,
-    email,
-    phone,
-    nic,
-    dob,
-    gender,
-    password,
-    role: "Doctor",
-    doctorDepartment,
-    docAvatar: {
-      public_id: cloudinaryResponse.public_id,
-      url: cloudinaryResponse.secure_url,
-    },
-  });
-  res.status(200).json({
-    success: true,
-    message: "New Doctor Registered",
-    doctor,
-  });
 });
 
 export const getAllDoctors = catchAsyncErrors(async (req, res, next) => {
