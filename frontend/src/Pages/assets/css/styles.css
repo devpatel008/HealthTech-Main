@@ -1,0 +1,204 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+/*=============== VARIABLES CSS ===============*/
+:root {
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --white-color: #fff;
+  --black-color: hsl(210, 12%, 15%);
+  --body-color1: #fff;
+  --body-color: hsl(210, 16%, 12%);
+  --container1-color: var(--white-color);
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Poppins", sans-serif;
+  --h2-font-size: 1.25rem;
+  --normal-font-size: .938rem;
+}
+@media screen and (min-width: 1024px) {
+  :root {
+    --h2-font-size: 1.5rem;
+    --normal-font-size: 1rem;
+  }
+}
+
+/*=============== BASE ===============*/
+/* * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--body-color1);
+} */
+
+a {
+  text-decoration: none;
+}
+
+/*=============== CARD ===============*/
+.container1 {
+  display: grid;
+  place-items: center;
+  margin-inline: 1.5rem;
+}
+
+.card__container1, .card__article1 {
+  display: grid;
+  gap: 2rem;
+}
+.card__container1 {
+  padding-block: 4.5rem;
+}
+.card__article1 {
+  --hue-1: 30;
+  --hue-2: 100;
+  position: relative;
+  justify-items: center;
+  color: var(--white-color);
+  text-align: center;
+  padding: 4rem 2rem 3rem;
+  border: 4px solid transparent;
+  background: linear-gradient(var(--container1-color), var(--container1-color)) padding-box, linear-gradient(135deg, hsl(var(0), 85%, 70%) 0%, var(--container1-color), var(--container1-color), hsl(var(0), 70%, 55%) 100%) border-box;
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+.card__shape-11 {
+  position: relative;
+  width: 148px;
+  height: 148px;
+  background: linear-gradient(140deg, hsl(var(--hue-1), 75%, 25%) 3%, hsl(var(--hue-2), 65%, 45%) 40%);
+  border-radius: 2rem;
+  z-index: 2;
+}
+.card__shape-21 {
+  width: 116px;
+  height: 116px;
+  background: linear-gradient(140deg, hsl(var(--hue-1), 70%, 50%) 3%, hsl(var(--hue-2), 95%, 45%) 40%);
+  border-radius: 1.5rem;
+}
+.card__shape-31 {
+  width: 76px;
+  height: 76px;
+  background: linear-gradient(140deg, hsl(var(--hue-1), 85%, 60%) 3%, hsl(var(--hue-2), 85%, 60%) 40%);
+  border-radius: 1rem;
+  display: grid;
+  place-items: center;
+}
+.card__shape-21, .card__shape-31 {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+}
+.card__icon1 {
+  font-size: 4rem;
+  width: 60%;
+  height: 60%;
+}
+.card__data1 {
+  z-index: 3;
+}
+.card__title1 {
+  font-size: var(--h2-font-size);
+  color: black;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+.user_name1 {
+  font-size: var(--h2-font-size);
+  color: black;
+  margin-left: 6rem;
+  margin-top: 6rem;
+  font-weight: 600;
+}
+.card__description1 {
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  font-size: larger;
+  color: black;
+}
+.card__button1 {
+  display: inline-block;
+  background-color: var(--white-color);
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  color: var(--black-color);
+  font-weight: 200;
+}
+.card__orange1 {
+  --hue-1: 178;
+  --hue-2: 178;
+}
+.card__green1 {
+  --hue-1: 178;
+  --hue-2: 178;
+}
+.card__scale-11 {
+  width: 148px;
+  height: 148px;
+  background: linear-gradient(140deg, hsl(var(--hue-1), 50%, 77%) 1%, hsl(var(--hue-2), 95%, 45%) 100%);
+  border-radius: 2rem;
+  top: 4rem;
+}
+.card__scale-21 {
+  width: 116px;
+  height: 116px;
+  background: var(--container1-color);
+  border-radius: 1.5rem;
+  top: 5rem;
+}
+.card__scale-11, .card__scale-21 {
+  position: absolute;
+  filter: blur(24px);
+  transition: transform 0.3s ease-in;
+}
+.card__article1:hover .card__scale-11 {
+  transform: scale(6);
+}
+.card__article1:hover .card__scale-21 {
+  transform: scale(6);
+  transition-delay: 0.1s;
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (max-width: 320px) {
+  .container1 {
+    margin-inline: 1rem;
+  }
+  .card__article1 {
+    padding: 2rem 1rem;
+  }
+  .card__scale-11 {
+    top: 2rem;
+  }
+  .card__scale-21 {
+    top: 3rem;
+  }
+}
+/* For medium devices */
+@media screen and (min-width: 576px) {
+  .card__container1 {
+    grid-template-columns: 328px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .card__container1 {
+    grid-template-columns: repeat(2, 328px);
+  }
+}
+/* For large devices */
+@media screen and (min-width: 1120px) {
+  .container1 {
+    height: 100vh;
+  }
+  .card__container1 {
+    grid-template-columns: repeat(4, 345px);
+  }
+  .card__article1 {
+    padding: 4.5rem 2rem 3.5rem;
+  }
+}
