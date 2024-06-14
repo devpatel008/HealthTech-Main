@@ -2,13 +2,13 @@ import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import { User } from "../models/userSchema.js";
 import ErrorHandler from "../middlewares/error.js";
 import { generateToken } from "../utils/jwtToken.js";
-const { CloudImage } = require('cloud-image');
+// const { CloudImage } = require('cloud-image');
 // import cloudinary from "cloudinary";
 
-const cloudImage = new CloudImage({
-  apiKey: process.env.CLOUDIMAGE_API_KEY,
-  apiSecret: process.env.CLOUDIMAGE_API_SECRET
-});
+// const cloudImage = new CloudImage({
+//   apiKey: process.env.CLOUDIMAGE_API_KEY,
+//   apiSecret: process.env.CLOUDIMAGE_API_SECRET
+// });
 
 export const patientRegister = catchAsyncErrors(async (req, res, next) => {
   const { firstName, lastName, email, phone, nic, dob, gender, password } =
@@ -110,14 +110,14 @@ export const addNewAdmin = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return next(new ErrorHandler("Doctor Avatar Required!", 400));
-  }
-  const { docAvatar } = req.files;
-  const allowedFormats = ["image/png", "image/jpeg", "image/webp"];
-  if (!allowedFormats.includes(docAvatar.mimetype)) {
-    return next(new ErrorHandler("File Format Not Supported!", 400));
-  }
+  // if (!req.files || Object.keys(req.files).length === 0) {
+  //   return next(new ErrorHandler("Doctor Avatar Required!", 400));
+  // }
+  // const { docAvatar } = req.files;
+  // const allowedFormats = ["image/png", "image/jpeg", "image/webp"];
+  // if (!allowedFormats.includes(docAvatar.mimetype)) {
+  //   return next(new ErrorHandler("File Format Not Supported!", 400));
+  // }
   const {
     firstName,
     lastName,
@@ -138,8 +138,9 @@ export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
     !dob ||
     !gender ||
     !password ||
-    !doctorDepartment ||
-    !docAvatar
+    !doctorDepartment
+    //  ||
+    // !docAvatar
   ) {
     return next(new ErrorHandler("Please Fill Full Form!", 400));
   }
@@ -149,53 +150,39 @@ export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
       new ErrorHandler("Doctor With This Email Already Exists!", 400)
     );
   }
-
-  // Upload the avatar to Cloud Image
-  try {
-    const cloudImageResponse = await cloudImage.upload({
-      file: docAvatar.tempFilePath,
-      folder: 'doctor_avatars',
-      use_filename: true,
-      unique_filename: false
-    });
-
-    if (!cloudImageResponse || cloudImageResponse.error) {
-      console.error(
-        "Cloud Image Error:",
-        cloudImageResponse.error || "Unknown Cloud Image error"
-      );
-      return next(
-        new ErrorHandler("Failed To Upload Doctor Avatar To Cloud Image", 500)
-      );
-    }
-
-    // Proceed with creating the doctor record after successful upload
-    const doctor = await User.create({
-      firstName,
-      lastName,
-      email,
-      phone,
-      nic,
-      dob,
-      gender,
-      password,
-      role: "Doctor",
-      doctorDepartment,
-      docAvatar: {
-        public_id: cloudImageResponse.public_id,
-        url: cloudImageResponse.secure_url,
-      },
-    });
-
-    res.status(200).json({
-      success: true,
-      message: "New Doctor Registered",
-      doctor,
-    });
-  } catch (error) {
-    console.error("Cloud Image Error:", error);
-    return next(new ErrorHandler("Failed To Upload Doctor Avatar To Cloud Image", 500));
-  }
+  // const cloudinaryResponse = await cloudinary.uploader.upload(
+  //   docAvatar.tempFilePath
+  // );
+  // if (!cloudinaryResponse || cloudinaryResponse.error) {
+  //   console.error(
+  //     "Cloudinary Error:",
+  //     cloudinaryResponse.error || "Unknown Cloudinary error"
+  //   );
+  //   return next(
+  //     new ErrorHandler("Failed To Upload Doctor Avatar To Cloudinary", 500)
+  //   );
+  // }
+  const doctor = await User.create({
+    firstName,
+    lastName,
+    email,
+    phone,
+    nic,
+    dob,
+    gender,
+    password,
+    role: "Doctor",
+    doctorDepartment,
+    // docAvatar: {
+    //   public_id: cloudinaryResponse.public_id,
+    //   url: cloudinaryResponse.secure_url,
+    // },
+  });
+  res.status(200).json({
+    success: true,
+    message: "New Doctor Registered",
+    doctor,
+  });
 });
 
 export const getAllDoctors = catchAsyncErrors(async (req, res, next) => {
