@@ -3,11 +3,13 @@ import {
   deleteAppointment,
   getAllAppointments,
   postAppointment,
-  updateAppointmentStatus,
+  updateAppointmentStatus
+  // getDocAppointments
 } from "../controller/appointmentController.js";
 import {
   isAdminAuthenticated,
   isPatientAuthenticated,
+  isDocAuthenticated
 } from "../middlewares/auth.js";
 
 const router = express.Router();

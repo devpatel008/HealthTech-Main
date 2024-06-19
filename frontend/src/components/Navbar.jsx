@@ -49,7 +49,7 @@ const Navbar = () => {
               Check Vitals
             </Link>
             <Link to={"/vitals/update"} onClick={() => setShow(!show)}>
-             Update Vitals
+              Update Vitals
             </Link>
           </div>
           {isAuthenticated ? (
