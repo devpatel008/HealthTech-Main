@@ -8,13 +8,13 @@ import {
 } from "../controller/appointmentController.js";
 import {
   isAdminAuthenticated,
-  isPatientAuthenticated,
-  isDocAuthenticated
+  isUserAuthenticated,
+  // isDocAuthenticated
 } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/post", isPatientAuthenticated, postAppointment);
+router.post("/post", isUserAuthenticated, postAppointment);
 router.get("/getall", isAdminAuthenticated, getAllAppointments);
 router.put("/update/:id", isAdminAuthenticated, updateAppointmentStatus);
 router.delete("/delete/:id", isAdminAuthenticated, deleteAppointment);

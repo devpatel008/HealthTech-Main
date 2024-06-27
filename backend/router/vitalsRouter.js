@@ -4,13 +4,13 @@ import {
   getLatestVitals
 } from "../controller/vitalsController.js";
 import {
-  isPatientAuthenticated
+  isUserAuthenticated
 } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/addvitals", isPatientAuthenticated, updateVitals);
-router.get("/getlatestvitals", isPatientAuthenticated, getLatestVitals);
+router.post("/addvitals", isUserAuthenticated, updateVitals);
+router.get("/getlatestvitals", isUserAuthenticated, getLatestVitals);
 
 
 export default router;

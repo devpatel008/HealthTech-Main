@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import Chatpage from "./Pages/Chatpage";
 import axios from "axios";
 import { Context } from "./main";
 import Login from "./Pages/Login";
@@ -31,6 +32,13 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/vitals" element={<CheckVitals />} />
+          {/* <ChakraProvider>
+            <BrowserRouter>
+              <ChatProvider>
+                <Route path="/chats" component={Chatpage} />
+              </ChatProvider>
+            </BrowserRouter>
+          </ChakraProvider> */}
           <Route path="/vitals/update" element={<UpdateVitals />} />
         </Routes>
         <Footer />

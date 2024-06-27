@@ -24,32 +24,20 @@ export const isAdminAuthenticated = catchAsyncErrors(
 );
 
 // Middleware to authenticate frontend users
-export const isPatientAuthenticated = catchAsyncErrors(
+export const isUserAuthenticated = catchAsyncErrors(
   async (req, res, next) => {
-    const token = req.cookies.patientToken;
+    let token = ""
+    if (req.cookies.patientToken) {
+      token = req.cookies.patientToken;
+    } else if (req.cookies.doctorToken) {
+      token = req.cookies.doctorToken;
+    }
     if (!token) {
       return next(new ErrorHandler("User is not authenticated!", 400));
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
     req.user = await User.findById(decoded.id);
-    if (req.user.role !== "Patient") {
-      return next(
-        new ErrorHandler(`${req.user.role} not authorized for this resource!`, 403)
-      );
-    }
-    next();
-  }
-);
-
-export const isDocAuthenticated = catchAsyncErrors(
-  async (req, res, next) => {
-    const token = req.cookies.doctorToken;
-    if (!token) {
-      return next(new ErrorHandler("User is not authenticated!", 400));
-    }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    req.user = await User.findById(decoded.id);
-    if (req.user.role !== "Doctor") {
+    if (req.user.role !== "Patient" && req.user.role !== "Doctor") {
       return next(
         new ErrorHandler(`${req.user.role} not authorized for this resource!`, 403)
       );

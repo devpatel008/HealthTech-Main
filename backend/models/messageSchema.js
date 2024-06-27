@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
 
-const messageSchema = new mongoose.Schema({
+const messageAdSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true,
@@ -30,4 +30,4 @@ const messageSchema = new mongoose.Schema({
   },
 });
 
-export const Message = mongoose.model("Message", messageSchema);
+export const MessageAd = mongoose.model("MessageAd", messageAdSchema);

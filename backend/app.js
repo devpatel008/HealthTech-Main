@@ -5,7 +5,9 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import fileUpload from "express-fileupload";
 import { errorMiddleware } from "./middlewares/error.js";
-import messageRouter from "./router/messageRouter.js";
+import messageAdRouter from "./router/messageAdRouter.js";
+import messageRoutes from "./router/messageRoutes.js";
+import chatRoutes from "./router/chatRoutes.js";
 import userRouter from "./router/userRouter.js";
 import appointmentRouter from "./router/appointmentRouter.js";
 import vitalsRouter from "./router/vitalsRouter.js";
@@ -31,8 +33,10 @@ app.use(
     tempFileDir: "/tmp/",
   })
 );
-app.use("/api/v1/message", messageRouter);
+app.use("/api/v1/messagetoAd", messageAdRouter);
+app.use("/api/v1/message", messageRoutes);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/chat", chatRoutes);
 app.use("/api/v1/appointment", appointmentRouter);
 app.use("/api/v1/user/patient/vitals", vitalsRouter);
 
